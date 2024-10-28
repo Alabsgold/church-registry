@@ -33,55 +33,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 
-    <!-- JavaScript for registration and login logic -->
-    <script>
-        // Firebase configuration (replace with your actual Firebase config values)
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // Register function
-        async function register() {
-            const name = document.getElementById('register-name').value;
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-
-            try {
-                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                await db.collection('users').add({
-                    uid: userCredential.user.uid,
-                    name: name,
-                    email: email
-                });
-                document.getElementById('message').innerText = 'Registration successful!';
-            } catch (error) {
-                document.getElementById('message').innerText = `Error: ${error.message}`;
-            }
-        }
-
-        // Login function
-        async function login() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-
-            try {
-                await auth.signInWithEmailAndPassword(email, password);
-                document.getElementById('message').innerText = 'Login successful!';
-                // Redirect to a dashboard or home page if needed
-            } catch (error) {
-                document.getElementById('message').innerText = `Error: ${error.message}`;
-            }
-        }
-    </script>
+    <!-- Your script.js file -->
+    <script src="script.js" defer></script> <!-- Added defer here -->
 </body>
 </html>
