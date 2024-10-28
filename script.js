@@ -14,24 +14,32 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 window.onload = () => {
-    // Register function
-    async function register() {
-        const name = document.getElementById('register-name').value;
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
+// Register function with debug logs
+async function register() {
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
 
-        try {
-            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-            await db.collection('users').add({
-                uid: userCredential.user.uid,
-                name: name,
-                email: email
-            });
-            document.getElementById('message').innerText = 'Registration successful!';
-        } catch (error) {
-            document.getElementById('message').innerText = `Error: ${error.message}`;
-        }
+    console.log("Register function called"); // Debug message
+    console.log("Name:", name, "Email:", email, "Password:", password); // Debug inputs
+
+    try {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        console.log("User created:", userCredential.user); // Debug Firebase user
+
+        await db.collection('users').add({
+            uid: userCredential.user.uid,
+            name: name,
+            email: email
+        });
+        
+        document.getElementById('message').innerText = 'Registration successful!';
+        console.log("Registration successful!"); // Debug success
+    } catch (error) {
+        document.getElementById('message').innerText = `Error: ${error.message}`;
+        console.error("Registration error:", error); // Debug error
     }
+}
 
     // Login function
     async function login() {
